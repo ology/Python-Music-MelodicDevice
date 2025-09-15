@@ -8,9 +8,9 @@ class Device:
         self.scale_name = scale_name
         self.notes = notes
         self.verbose = verbose
-        self._scale = self._build_scale()
+        self._scale = self.build_scale()
 
-    def _build_scale(self):
+    def build_scale(self):
         scale = []
         for i in range(10):
             s = musical_scales.scale(self.scale_note, self.scale_name, starting_octave=i)
