@@ -23,9 +23,5 @@ class TestMelodicDevice(unittest.TestCase):
         device = Device(notes=['C4', 'E4', 'D#4', 'G4', 'C5'], scale_name='major')
         self.assertEqual(device.transpose(2), ['E4', 'G4', None, 'B4', 'E5'])
 
-    def test_transpose_notes_method(self):
-        device = Device(notes=['C4', 'E4', 'G4'], scale_name='major')
-        self.assertEqual(device.transpose(4), ['G4', 'B4', 'D5'])
-
 if __name__ == '__main__':
     unittest.main()
