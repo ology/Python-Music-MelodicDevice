@@ -29,7 +29,7 @@ class Device:
             print("Notes:", notes)
         transposed = []
         for n in notes:
-            i, pitch_val = self._find_pitch(n)
+            i = self._find_pitch(n)
             if i == -1:
                 transposed.append(None)
             else:
@@ -40,20 +40,16 @@ class Device:
         return transposed
 
     def _find_pitch(self, p):
-        if isinstance(p, str) and any(c in p for c in 'ABCDEFG'):
-            pitch_val = p
-        else:
-            pitch_val = int(p)
         try:
-            i = self.scale.index(pitch_val)
+            i = self.scale.index(p)
         except ValueError:
             i = -1
-        return i, pitch_val
+        return i
 
     def intervals(self, notes):
         pitches = []
         for note in notes:
-            i, pitch = self._find_pitch(note)
+            i = self._find_pitch(note)
             pitches.append(i)
         if self.verbose:
             print(f"Pitch indexes: {pitches}")
@@ -68,9 +64,11 @@ class Device:
         return intervals
 
     def invert(self, note, notes):
+        if self.verbose:
+            print("Notes:", notes)
         inverted = [note]
         for interval in self.intervals(notes):
-            i, note_val = self._find_pitch(note)
+            i = self._find_pitch(note)
             pitch = self.scale[i - interval]
             inverted.append(pitch)
         if self.verbose:
