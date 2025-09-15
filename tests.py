@@ -26,13 +26,13 @@ class TestMelodicDevice(unittest.TestCase):
 
     def test_inversion_note_names(self):
         # https://music.stackexchange.com/questions/32507/what-is-melodic-inversion-and-how-to-do-it/
-        device = Device(notes=['A4', 'C5', 'B4', 'A4', 'E5'], verbose=False)
+        device = Device(notes=['A4', 'C5', 'B4', 'A4', 'E5'], verbose=True)
         expect = [3, -1, -2, 7]
         got = device.intervals(device.notes)
         self.assertEqual(got, expect)
-        # expect = ['E5','C#5','D5','E5','A4']
-        # got = device.invert('E5', device.notes)
-        # self.assertEqual(got, expect)
+        expect = ['E5','C#5','D5','E5','A4']
+        got = device.invert('E5', device.notes)
+        self.assertEqual(got, expect)
 
     # def test_inversion_note_nums(self):
     #     expect = [3, -1, -2, 7]
