@@ -3,8 +3,6 @@ import musical_scales
 import re
 
 class Device:
-    OCTAVES = 10
-
     def __init__(self, scale_note='C', scale_name='chromatic', notes=[], verbose=0):
         self.scale_note = scale_note
         self.scale_name = scale_name
@@ -13,37 +11,35 @@ class Device:
         self._scale = self._build_scale()
 
     def _build_scale(self):
-        s = musical_scales.scale(self.scale_note, self.scale_name)
-        # remove the octave number from the stringified Note:
-        s2 = []
-        for n in s:
-            s2.append(re.sub(r"\d+", "", f"{n}"))
+        scale = []
+        for i in range(10):
+            s = musical_scales.scale(self.scale_note, self.scale_name, starting_octave=i)
+            scale.append(s[:-1])
+        scale = [ f"{x}" for s in scale for x in s ]
         if self.verbose:
-            print('Scale:', s2)
-        return s2
+            print("Scale:", scale)
+        return scale
 
-    def transpose(self, offset, notes=None):
-        notes = notes if notes is not None else self.notes
-        named = isinstance(notes[0], str) and any(n in notes[0] for n in 'ABCDEFG')
+    def transpose(self, offset, notes=[]):
+        if not len(notes):
+            notes = self.notes
+        if self.verbose:
+            print("Notes:", notes)
         transposed = []
         for n in notes:
             i, pitch_val = self._find_pitch(n)
-            print(n, i)
             if i == -1:
                 transposed.append(None)
             else:
-                midi_val = self._scale[i + offset]
-                if named:
-                    transposed.append(pitch.Pitch(midi_val).nameWithOctave)
-                else:
-                    transposed.append(midi_val)
+                val = self._scale[i + offset]
+                transposed.append(val)
         if self.verbose:
             print('Transposed:', transposed)
         return transposed
 
     def _find_pitch(self, p):
         if isinstance(p, str) and any(c in p for c in 'ABCDEFG'):
-            pitch_val = pitch.Pitch(p).midi
+            pitch_val = p
         else:
             pitch_val = int(p)
         try:
