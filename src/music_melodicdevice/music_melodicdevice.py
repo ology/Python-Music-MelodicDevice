@@ -18,8 +18,6 @@ class Device:
         s2 = []
         for n in s:
             s2.append(re.sub(r"\d+", "", f"{n}"))
-        if self.flat:
-            s2 = [ self._equiv(note) for note in s2 ]
         if self.verbose:
             print('Scale:', s2)
         return s2
@@ -30,6 +28,7 @@ class Device:
         transposed = []
         for n in notes:
             i, pitch_val = self._find_pitch(n)
+            print(n, i)
             if i == -1:
                 transposed.append(None)
             else:

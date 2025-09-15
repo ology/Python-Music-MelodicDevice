@@ -5,7 +5,7 @@ import unittest
 
 class TestMelodicDevice(unittest.TestCase):
     def setUp(self):
-        self.device = Device()
+        self.device = Device(verbose=True)
         self.notes = ['C4', 'E4', 'D4', 'G4', 'C5']
         self.nums = [60, 64, 62, 67, 72]
 
@@ -85,7 +85,7 @@ class TestMelodicDevice(unittest.TestCase):
         self.device = Device(scale_name='major')
         notes = ['C4', 'E4', 'G4']
         expect = ['G4', 'B4', 'D5']
-        self.device.notes(notes)
+        self.device.notes = notes
         got = self.device.transpose(4)
         self.assertEqual(got, expect)
 
