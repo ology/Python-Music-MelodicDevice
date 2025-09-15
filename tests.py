@@ -20,7 +20,7 @@ class TestMelodicDevice(unittest.TestCase):
         self.assertEqual(device.transpose(-4), ['F3', 'A3', 'G3', 'C4', 'F4'])
 
     def test_transpose_unknown_note(self):
-        device = Device(notes=['C4', 'E4', 'D#4', 'G4', 'C5'])
+        device = Device(notes=['C4', 'E4', 'D#4', 'G4', 'C5'], verbose=False)
         device.build_scale('major')
         self.assertEqual(device.transpose(2), ['E4', 'G4', None, 'B4', 'E5'])
 
