@@ -15,15 +15,15 @@ class TestMelodicDevice(unittest.TestCase):
         device = Device(notes=['C4', 'E4', 'D4', 'G4', 'C5'], scale_name='major', verbose=True)
         device.notes = ['C4', 'E4', 'D4', 'G4', 'C5']
         self.assertEqual(device.transpose(2), ['E4', 'G4', 'F4', 'B4', 'E5'])
-    #     expect = ['G4', 'B4', 'A4', 'D5', 'G5']
-    #     got = self.device.transpose(4, self.notes)
-    #     self.assertEqual(got, expect)
-    #     expect = ['A3', 'C4', 'B3', 'E4', 'A4']
-    #     got = self.device.transpose(-2, self.notes)
-    #     self.assertEqual(got, expect)
-    #     expect = ['F3', 'A3', 'G3', 'C4', 'F4']
-    #     got = self.device.transpose(-4, self.notes)
-    #     self.assertEqual(got, expect)
+        expect = ['G4', 'B4', 'A4', 'D5', 'G5']
+        got = device.transpose(4)
+        self.assertEqual(got, expect)
+        expect = ['A3', 'C4', 'B3', 'E4', 'A4']
+        got = device.transpose(-2)
+        self.assertEqual(got, expect)
+        expect = ['F3', 'A3', 'G3', 'C4', 'F4']
+        got = device.transpose(-4)
+        self.assertEqual(got, expect)
 
     # def test_transpose_unknown_note(self):
     #     self.device = Device(scale_name='major')
