@@ -21,6 +21,7 @@ transposed = device.transpose(2) # ['E4', 'G4', 'F4', 'B4', 'E5']
 # unknown note:
 device = Device()
 device.scale_name = 'major'
+device.build_scale()
 transposed = device.transpose(2, ['C4', 'E4', 'D#4', 'G4', 'C5'])
 # ['E4', 'G4', None, 'B4', 'E5'])
 ```

@@ -8,7 +8,7 @@ class Device:
         self.scale_name = scale_name
         self.notes = notes
         self.verbose = verbose
-        self._scale = self.build_scale()
+        self.build_scale()
 
     def build_scale(self):
         scale = []
@@ -18,7 +18,7 @@ class Device:
         scale = [ f"{x}" for s in scale for x in s ]
         if self.verbose:
             print("Scale:", scale)
-        return scale
+        self.scale = scale
 
     def transpose(self, offset, notes=[]):
         if not len(notes):
@@ -31,7 +31,7 @@ class Device:
             if i == -1:
                 transposed.append(None)
             else:
-                val = self._scale[i + offset]
+                val = self.scale[i + offset]
                 transposed.append(val)
         if self.verbose:
             print('Transposed:', transposed)
@@ -43,7 +43,7 @@ class Device:
         else:
             pitch_val = int(p)
         try:
-            i = self._scale.index(pitch_val)
+            i = self.scale.index(pitch_val)
         except ValueError:
             i = -1
         return i, pitch_val
