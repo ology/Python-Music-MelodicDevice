@@ -49,3 +49,30 @@ class Device:
         except ValueError:
             i = -1
         return i, pitch_val
+
+    def intervals(self, notes):
+        pitches = []
+        for note in notes:
+            i, pitch = self._find_pitch(note)
+            pitches.append(i)
+        if self.verbose:
+            print(f"Pitches: {pitches}")
+        intervals = []
+        last = None
+        for pitch in pitches:
+            if last is not None:
+                intervals.append(pitch - last)
+            last = pitch
+        if self.verbose:
+            print(f"Intervals: {intervals}")
+        return intervals
+
+    def invert(self, note, notes):
+        inverted = [note]
+        for interval in self.intervals(notes):
+            i, note_val = self._find_pitch(note)
+            pitch = self.scale[i - interval]
+            inverted.append(pitch)
+        if self.verbose:
+            print(f"Inverted: {inverted}")
+        return inverted
