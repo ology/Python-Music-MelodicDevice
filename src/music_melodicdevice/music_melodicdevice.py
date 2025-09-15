@@ -56,7 +56,7 @@ class Device:
             i, pitch = self._find_pitch(note)
             pitches.append(i)
         if self.verbose:
-            print(f"Pitches: {pitches}")
+            print(f"Pitch indexes: {pitches}")
         intervals = []
         last = None
         for pitch in pitches:
