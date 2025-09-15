@@ -25,7 +25,7 @@ transposed = device.transpose(2, ['C4', 'E4', 'D#4', 'G4', 'C5'])
 # ['E4', 'G4', None, 'B4', 'E5'])
 ```
 
-## MUSICAL EXAMPLE
+## MUSICAL EXAMPLES
 ```python
 # TODO
 ```
