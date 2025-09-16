@@ -1,6 +1,4 @@
-from music21 import scale, note, pitch
 import musical_scales
-import re
 
 class Device:
     def __init__(self, scale_note='C', scale_name='chromatic', notes=[], verbose=0):
@@ -46,25 +44,6 @@ class Device:
             i = -1
         return i
 
-    def _equiv(self, n, flat=False):
-        match = re.search(r"^([A-G])\-(\d)$", n)
-        if match:
-            note = match.group(1)
-            octave = match.group(2)
-            if flat:
-                return note + 'b' + octave
-            else:
-                enharmonic = {
-                    'D': 'C',
-                    'E': 'D',
-                    'G': 'F',
-                    'A': 'G',
-                    'B': 'A',
-                }
-                return enharmonic[note] + '#' + octave
-        else:
-            return n
-
     def intervals(self, notes=[]):
         if not notes:
             notes = self.notes
@@ -90,9 +69,9 @@ class Device:
         if self.verbose:
             print("Axis, Notes:", axis_note, notes)
         axis = self._find_pitch(axis_note)
-        nums = [ note.Note(n).pitch.midi for n in notes ]
+        nums = [ self._find_pitch(n) for n in notes ]
         inverted = [ axis - (n - axis) for n in nums ]
-        named = [ note.Note(n).nameWithOctave for n in inverted ]
+        named = [ self.scale[n] for n in inverted ]
         if self.verbose:
             print("Inverted:", named)
-        return [ self._equiv(x) for x in named ]
+        return named
