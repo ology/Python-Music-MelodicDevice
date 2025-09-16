@@ -33,23 +33,18 @@ class TestMelodicDevice(unittest.TestCase):
         self.assertEqual(device.invert('C4'), ['C4', 'A#3', 'G#3', 'A#3', 'G3'])
         device = Device(notes=['C4', 'D4', 'E4', 'D4', 'F4'], verbose=False)
         self.assertEqual(device.invert('C#4'), ['D4', 'C4', 'A#3', 'C4', 'A3'])
-
-    # def test_inversion_chromatic(self):
-    #     # https://en.wikipedia.org/wiki/Inversion_(music)#Melodies
-    #     notes = ['A#4','E4','F#4','D#4','F4','A4','D5','C#5','G4','G#4','B4','C5']
-    #     expect = [-6, 2, -3, 2, 4, 5, -1, -6, 1, 3, 1]
-    #     got = device.intervals(notes)
-    #     self.assertEqual(got, expect)
-    #     expect = ['A#4','E5','D5','F5','D#5','B4','F#4','G4','C#5','C5','A4','G#4']
-    #     got = device.invert('A#4', notes)
-    #     self.assertEqual(got, expect)
-    #     notes = ['C4', 'E4', 'D4', 'G4', 'C5']
-    #     expect = [4, -2, 5, 5]
-    #     got = device.intervals(notes)
-    #     self.assertEqual(got, expect)
-    #     expect = ['C4','G#3','A#3','F3','C3']
-    #     got = device.invert('C4', notes)
-    #     self.assertEqual(got, expect)
+        # https://en.wikipedia.org/wiki/Inversion_(music)#Melodies
+        device = Device(verbose=True)
+        notes = ['A#4','E4','F#4','D#4','F4','A4','D5','C#5','G4','G#4','B4','C5']
+        self.assertEqual(device.intervals(notes), [-6, 2, -3, 2, 4, 5, -1, -6, 1, 3, 1])
+        expect = ['A#4','E5','D5','F5','D#5','B4','F#4','G4','C#5','C5','A4','G#4']
+        got = device.invert('A#4', notes)
+        self.assertEqual(got, expect)
+        notes = ['C4', 'E4', 'D4', 'G4', 'C5']
+        self.assertEqual(device.intervals(notes), [4, -2, 5, 5])
+        expect = ['C4','G#3','A#3','F3','C3']
+        got = device.invert('C4', notes)
+        self.assertEqual(got, expect)
 
     # def test_inversion_diatonic(self):
     #     obj = Inversion(scale_name='major')
