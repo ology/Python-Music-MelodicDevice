@@ -89,7 +89,7 @@ class Device:
             notes = self.notes
         if self.verbose:
             print("Axis, Notes:", axis_note, notes)
-        axis = note.Note(axis_note).pitch.midi
+        axis = self._find_pitch(axis_note)
         nums = [ note.Note(n).pitch.midi for n in notes ]
         inverted = [ axis - (n - axis) for n in nums ]
         named = [ note.Note(n).nameWithOctave for n in inverted ]
