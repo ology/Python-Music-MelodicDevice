@@ -14,16 +14,16 @@ class Device:
         if name:
             self.scale_name = name
         scale = []
-        for i in range(10):
+        for i in range(-1,10):
             s = musical_scales.scale(self.scale_note, self.scale_name, starting_octave=i)
             scale.append(s[:-1])
         scale = [ f"{x}" for s in scale for x in s ]
         if self.verbose:
-            print("Scale:", scale)
+            print("Scale:", scale, len(scale))
         self.scale = scale
 
     def transpose(self, offset, notes=[]):
-        if not len(notes):
+        if not notes:
             notes = self.notes
         if self.verbose:
             print("Notes:", notes)
@@ -46,7 +46,28 @@ class Device:
             i = -1
         return i
 
-    def intervals(self, notes):
+    def _equiv(self, n, flat=False):
+        match = re.search(r"^([A-G])\-(\d)$", n)
+        if match:
+            note = match.group(1)
+            octave = match.group(2)
+            if flat:
+                return note + 'b' + octave
+            else:
+                enharmonic = {
+                    'D': 'C',
+                    'E': 'D',
+                    'G': 'F',
+                    'A': 'G',
+                    'B': 'A',
+                }
+                return enharmonic[note] + '#' + octave
+        else:
+            return n
+
+    def intervals(self, notes=[]):
+        if not notes:
+            notes = self.notes
         pitches = []
         for note in notes:
             i = self._find_pitch(note)
@@ -63,14 +84,15 @@ class Device:
             print(f"Intervals: {intervals}")
         return intervals
 
-    def invert(self, note, notes):
+    def invert(self, axis_note, notes=[]):
+        if not notes:
+            notes = self.notes
         if self.verbose:
-            print("Notes:", notes)
-        inverted = [note]
-        for interval in self.intervals(notes):
-            i = self._find_pitch(note)
-            pitch = self.scale[i - interval]
-            inverted.append(pitch)
+            print("Axis, Notes:", axis_note, notes)
+        axis = note.Note(axis_note).pitch.midi
+        nums = [ note.Note(n).pitch.midi for n in notes ]
+        inverted = [ axis - (n - axis) for n in nums ]
+        named = [ note.Note(n).nameWithOctave for n in inverted ]
         if self.verbose:
-            print(f"Inverted: {inverted}")
-        return inverted
+            print("Inverted:", named)
+        return [ self._equiv(x) for x in named ]
