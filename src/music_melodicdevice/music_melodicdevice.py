@@ -115,18 +115,11 @@ class Device:
             print(f"Durations: {x}, {z}")
         return [[z, above], [z, pitch], [z, below], [z, pitch]]
 
-    def trill(self, duration: str, pitch: Union[str, int], number: int = 2, offset: int = 1):
-        named = isinstance(pitch, str) and pitch[0] in 'ABCDEFG'
-        i, pitch_num = self._find_pitch(pitch)
-        alt_num = self._scale[i + offset]
-        if named:
-            pitch = self.pitchname(pitch_num)
-            alt = self.pitchname(alt_num)
-        else:
-            pitch = pitch_num
-            alt = alt_num
-        x = self._duration_ticks(duration)
-        z = round(x / number / 2)
+    def trill(self, duration, pitch, number=2, offset=1):
+        i = self._find_pitch(pitch)
+        alt = self.scale[i + offset]
+        x = duration
+        z = x / number / 2
         if self.verbose:
             print(f"Durations: {x}, {z}")
         trill = []
