@@ -3,7 +3,7 @@ Apply chromatic and diatonic transformations to music notes
 
 ## DESCRIPTION
 
-This class provides methods to do traditional transformations to music notes.
+This class provides methods to do chromatic and diatonic transformations to music notes.
 
 The three major categories are transpositions, inversions, and five types of ornamentation.
 
