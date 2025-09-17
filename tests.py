@@ -63,112 +63,112 @@ class TestMelodicDevice(unittest.TestCase):
             ['C4', 'A3', None, 'F3', 'C3'])
 
     def test_ornament_chromatic(self):
-        obj = Device()
+        device = Device()
 
         expect = [[1/16, 'D5'], [1 - 1/16, 'D5']]
-        got = obj.grace_note(1, 'D5')
+        got = device.grace_note(1, 'D5')
         self.assertEqual(got, expect)
         expect = [[1/16, 'D#5'], [1 - 1/16, 'D5']]
-        got = obj.grace_note(1, 'D5', offset=1)
+        got = device.grace_note(1, 'D5', offset=1)
         self.assertEqual(got, expect)
         expect = [[1/16, 'C#5'], [1 - 1/16, 'D5']]
-        got = obj.grace_note(1, 'D5', offset=-1)
+        got = device.grace_note(1, 'D5', offset=-1)
         self.assertEqual(got, expect)
 
         expect = [[1/4,'D#5'], [1/4,'D5'], [1/4,'C#5'], [1/4,'D5']]
-        got = obj.turn(1, 'D5')
+        got = device.turn(1, 'D5')
         self.assertEqual(got, expect)
         expect = [[1/4,'C#5'], [1/4,'D5'], [1/4,'D#5'], [1/4,'D5']]
-        got = obj.turn(1, 'D5', offset=-1)
+        got = device.turn(1, 'D5', offset=-1)
         self.assertEqual(got, expect)
 
         expect = [[1/4,'D5'], [1/4,'D#5'], [1/4,'D5'], [1/4,'D#5']]
-        got = obj.trill(1, 'D5', number=2, offset=1)
+        got = device.trill(1, 'D5', number=2, offset=1)
         self.assertEqual(got, expect)
         expect = [[1/4,'D5'], [1/4,'C#5'], [1/4,'D5'], [1/4,'C#5']]
-        got = obj.trill(1, 'D5', number=2, offset=-1)
+        got = device.trill(1, 'D5', number=2, offset=-1)
         self.assertEqual(got, expect)
 
         expect = [[1/4,'D5'], [1/4,'D#5'], [1/2,'D5']]
-        got = obj.mordent(1, 'D5', offset=1)
+        got = device.mordent(1, 'D5', offset=1)
         self.assertEqual(got, expect)
         expect = [[1/4,'D5'], [1/4,'C#5'], [1/2,'D5']]
-        got = obj.mordent(1, 'D5', offset=-1)
+        got = device.mordent(1, 'D5', offset=-1)
         self.assertEqual(got, expect)
 
         expect = [ [1/4,'D5'], [1/4,'D#5'], [1/4,'E5'], [1/4,'F5'] ]
-        got = obj.slide(1, 'D5', 'F5')
+        got = device.slide(1, 'D5', 'F5')
         self.assertEqual(got, expect)
         expect = [ [1/4,'D5'], [1/4,'C#5'], [1/4,'C5'], [1/4,'B4'] ]
-        got = obj.slide(1, 'D5', 'B4')
+        got = device.slide(1, 'D5', 'B4')
         self.assertEqual(got, expect)
 
     def test_ornament_C_major(self):
-        obj = Device(scale_name='major')
+        device = Device(scale_name='major')
 
         expect = [[1/16, 'E5'], [1 - 1/16, 'D5']]
-        got = obj.grace_note(1, 'D5', offset=1)
+        got = device.grace_note(1, 'D5', offset=1)
         self.assertEqual(got, expect)
         expect = [[1/16, 'D5'], [1 - 1/16, 'D5']]
-        got = obj.grace_note(1, 'D5', 0)
+        got = device.grace_note(1, 'D5', 0)
         self.assertEqual(got, expect)
         expect = [[1/16, 'C5'], [1 - 1/16, 'D5']]
-        got = obj.grace_note(1, 'D5', -1)
+        got = device.grace_note(1, 'D5', -1)
         self.assertEqual(got, expect)
 
         expect = [[1/4,'E5'], [1/4,'D5'], [1/4,'C5'], [1/4,'D5']]
-        got = obj.turn(1, 'D5', 1)
+        got = device.turn(1, 'D5', 1)
         self.assertEqual(got, expect)
         expect = [[1/4,'C5'], [1/4,'D5'], [1/4,'E5'], [1/4,'D5']]
-        got = obj.turn(1, 'D5', -1)
+        got = device.turn(1, 'D5', -1)
         self.assertEqual(got, expect)
 
         expect = [[1/4,'D5'], [1/4,'E5'], [1/4,'D5'], [1/4,'E5']]
-        got = obj.trill(1, 'D5', 2, 1)
+        got = device.trill(1, 'D5', 2, 1)
         self.assertEqual(got, expect)
         expect = [[1/4,'D5'], [1/4,'C5'], [1/4,'D5'], [1/4,'C5']]
-        got = obj.trill(1, 'D5', 2, -1)
+        got = device.trill(1, 'D5', 2, -1)
         self.assertEqual(got, expect)
 
         expect = [[1/4,'D5'], [1/4,'E5'], [1/2,'D5']]
-        got = obj.mordent(1, 'D5', 1)
+        got = device.mordent(1, 'D5', 1)
         self.assertEqual(got, expect)
         expect = [[1/4,'D5'], [1/4,'C5'], [1/2,'D5']]
-        got = obj.mordent(1, 'D5', -1)
+        got = device.mordent(1, 'D5', -1)
         self.assertEqual(got, expect)
 
     def test_ornament_D_major(self):
-        obj = Device(scale_note='D', scale_name='major')
+        device = Device(scale_note='D', scale_name='major')
 
         expect = [[1/16, 'E5'], [1 - 1/16, 'D5']]
-        got = obj.grace_note(1, 'D5', 1)
+        got = device.grace_note(1, 'D5', 1)
         self.assertEqual(got, expect)
         expect = [[1/16, 'D5'], [1 - 1/16, 'D5']]
-        got = obj.grace_note(1, 'D5', 0)
+        got = device.grace_note(1, 'D5', 0)
         self.assertEqual(got, expect)
         expect = [[1/16, 'C#5'], [1 - 1/16, 'D5']]
-        got = obj.grace_note(1, 'D5', -1)
+        got = device.grace_note(1, 'D5', -1)
         self.assertEqual(got, expect)
 
         expect = [[1/4,'E5'], [1/4,'D5'], [1/4,'C#5'], [1/4,'D5']]
-        got = obj.turn(1, 'D5', 1)
+        got = device.turn(1, 'D5', 1)
         self.assertEqual(got, expect)
         expect = [[1/4,'C#5'], [1/4,'D5'], [1/4,'E5'], [1/4,'D5']]
-        got = obj.turn(1, 'D5', -1)
+        got = device.turn(1, 'D5', -1)
         self.assertEqual(got, expect)
 
         expect = [[1/4,'D5'], [1/4,'E5'], [1/4,'D5'], [1/4,'E5']]
-        got = obj.trill(1, 'D5', 2, 1)
+        got = device.trill(1, 'D5', 2, 1)
         self.assertEqual(got, expect)
         expect = [[1/4,'D5'], [1/4,'C#5'], [1/4,'D5'], [1/4,'C#5']]
-        got = obj.trill(1, 'D5', 2, -1)
+        got = device.trill(1, 'D5', 2, -1)
         self.assertEqual(got, expect)
 
         expect = [[1/4,'D5'], [1/4,'E5'], [1/2,'D5']]
-        got = obj.mordent(1, 'D5', 1)
+        got = device.mordent(1, 'D5', 1)
         self.assertEqual(got, expect)
         expect = [[1/4,'D5'], [1/4,'C#5'], [1/2,'D5']]
-        got = obj.mordent(1, 'D5', -1)
+        got = device.mordent(1, 'D5', -1)
         self.assertEqual(got, expect)
 
 if __name__ == '__main__':
