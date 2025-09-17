@@ -24,7 +24,7 @@ class TestMelodicDevice(unittest.TestCase):
         device.build_scale('major')
         self.assertEqual(device.transpose(2), ['E4', 'G4', None, 'B4', 'E5'])
 
-    def test_inversion_note_names(self):
+    def test_inversion_chromatic(self):
         device = Device(notes=['A4', 'C5', 'B4', 'A4', 'E5'], verbose=False)
         self.assertEqual(device.intervals(), [3, -1, -2, 7])
         device = Device(notes=['C4', 'A#3', 'G#3', 'A#3', 'G3'], verbose=False)
