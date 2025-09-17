@@ -157,4 +157,5 @@ class Device:
             notes.append([z, n])
         if j < i:
             notes = list(reversed(notes))
+        self.scale = self.build_scale(scale_name)
         return notes
