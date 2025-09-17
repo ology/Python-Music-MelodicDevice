@@ -12,7 +12,7 @@ class Device:
         self.scale_name = scale_name
         self.notes = notes
         self.verbose = verbose
-        self.build_scale()
+        self.scale = self.build_scale()
 
     def _find_pitch(self, p):
         try:
@@ -31,7 +31,7 @@ class Device:
         scale = [ f"{x}" for s in scale for x in s ]
         if self.verbose:
             print("Scale:", scale, len(scale))
-        self.scale = scale
+        return scale
 
     def transpose(self, offset, notes=[]):
         if not notes:
@@ -139,11 +139,9 @@ class Device:
             print(f"Durations: {x}, {y}, {z}")
         return [[y, pitch], [y, alt], [z, pitch]]
 
-    def slide(self, duration: str, from_pitch: Union[str, int], to_pitch: Union[str, int]):
-        # Always use chromatic scale for slide
-        chromatic_scale = []
-        for octave in range(-1, OCTAVES - 1):
-            chromatic_scale += get_scale(self.scale_note, 'chromatic', octave)
+    def slide(self, duration, from_pitch, to_pitch):
+        # Always use the chromatic scale for slide
+        chromatic_scale = self.build_scale('chromatic')
         named = isinstance(from_pitch, str) and from_pitch[0] in 'ABCDEFG'
         i, from_num = self._find_pitch(from_pitch, chromatic_scale)
         j, to_num = self._find_pitch(to_pitch, chromatic_scale)

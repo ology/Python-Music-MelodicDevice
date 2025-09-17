@@ -21,7 +21,7 @@ class TestMelodicDevice(unittest.TestCase):
 
     def test_transpose_unknown_note(self):
         device = Device(notes=['C4', 'E4', 'D#4', 'G4', 'C5'], verbose=False)
-        device.build_scale('major')
+        device.scale = device.build_scale('major')
         self.assertEqual(device.transpose(2), ['E4', 'G4', None, 'B4', 'E5'])
 
     def test_inversion_chromatic(self):
@@ -60,7 +60,7 @@ class TestMelodicDevice(unittest.TestCase):
     def test_inversion_unknown_note(self):
         device = Device(scale_name='major', verbose=False)
         self.assertEqual(device.invert('C4', ['C4', 'E4', 'D#4', 'G4', 'C5']),
-                         ['C4', 'A3', None, 'F3', 'C3'])
+            ['C4', 'A3', None, 'F3', 'C3'])
 
     def test_ornament_chromatic(self):
         obj = Device()
@@ -96,9 +96,9 @@ class TestMelodicDevice(unittest.TestCase):
         got = obj.mordent(1, 'D5', offset=-1)
         self.assertEqual(got, expect)
 
-    #     expect = [ ['d24','D5'], ['d24','D#5'], ['d24','E5'], ['d24','F5'] ]
-    #     got = obj.slide('qn', 'D5', 'F5')
-    #     self.assertEqual(got, expect)
+        # expect = [ [1/4,'D5'], [1/4,'D#5'], [1/4,'E5'], [1/4,'F5'] ]
+        # got = obj.slide(1, 'D5', 'F5')
+        # self.assertEqual(got, expect)
     #     expect = [ ['d24','D5'], ['d24','C#5'], ['d24','C5'], ['d24','B4'] ]
     #     got = obj.slide('qn', 'D5', 'B4')
     #     self.assertEqual(got, expect)
