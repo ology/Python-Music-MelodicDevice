@@ -90,12 +90,8 @@ class TestMelodicDevice(unittest.TestCase):
         self.assertEqual(device.grace_note(1, 'D5', offset=1), [[1/16, 'E5'], [1 - 1/16, 'D5']])
         self.assertEqual(device.grace_note(1, 'D5', offset=-1), [[1/16, 'C5'], [1 - 1/16, 'D5']])
 
-        expect = [[1/4,'E5'], [1/4,'D5'], [1/4,'C5'], [1/4,'D5']]
-        got = device.turn(1, 'D5', 1)
-        self.assertEqual(got, expect)
-        expect = [[1/4,'C5'], [1/4,'D5'], [1/4,'E5'], [1/4,'D5']]
-        got = device.turn(1, 'D5', -1)
-        self.assertEqual(got, expect)
+        self.assertEqual(device.turn(1, 'D5', 1), [[1/4,'E5'], [1/4,'D5'], [1/4,'C5'], [1/4,'D5']])
+        self.assertEqual(device.turn(1, 'D5', -1), [[1/4,'C5'], [1/4,'D5'], [1/4,'E5'], [1/4,'D5']])
 
         expect = [[1/4,'D5'], [1/4,'E5'], [1/4,'D5'], [1/4,'E5']]
         got = device.trill(1, 'D5', 2, 1)
