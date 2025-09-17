@@ -142,6 +142,34 @@ for i in device.notes + notes:
 s.append(p)
 s.show()
 ```
+```python
+notes = ['C4', 'E4', 'D4', 'G4']
+
+device = Device(scale_name='major')
+device.notes = notes
+device.notes = device.invert('C5')
+device.notes = device.transpose(-5)
+
+s = stream.Stream()
+p = stream.Part()
+
+length = len(notes) + len(device.notes)
+
+for i,j in enumerate(notes + device.notes):
+    if (i + 1) % 4 == 0:
+        turn = device.turn(1, j)
+        for t in turn:
+            m = note.Note(t[1])
+            m.duration = duration.Duration(t[0])
+            p.append(m)
+    else:
+        n = note.Note(j)
+        n.duration = duration.Duration(1)
+        p.append(n)
+
+s.append(p)
+s.show()
+```
 
 # SEE ALSO
 
