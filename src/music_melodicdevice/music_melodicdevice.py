@@ -141,23 +141,20 @@ class Device:
 
     def slide(self, duration, from_pitch, to_pitch):
         # Always use the chromatic scale for slide
-        chromatic_scale = self.build_scale('chromatic')
-        named = isinstance(from_pitch, str) and from_pitch[0] in 'ABCDEFG'
-        i, from_num = self._find_pitch(from_pitch, chromatic_scale)
-        j, to_num = self._find_pitch(to_pitch, chromatic_scale)
+        scale_name = self.scale_name
+        self.scale = self.build_scale('chromatic')
+        i = self._find_pitch(from_pitch)
+        j = self._find_pitch(to_pitch)
         start, end = (i, j) if i <= j else (j, i)
-        x = self._duration_ticks(duration)
+        x = duration
         y = end - start + 1
-        z = round(x / y)
+        z = x / y
         if self.verbose:
             print(f"Durations: {x}, {y}, {z}")
         notes = []
         for idx in range(start, end + 1):
-            midi_num = chromatic_scale[idx]
-            if named:
-                notes.append([z, self.pitchname(midi_num)])
-            else:
-                notes.append([z, midi_num])
+            n = self.scale[idx]
+            notes.append([z, n])
         if j < i:
             notes = list(reversed(notes))
         return notes
