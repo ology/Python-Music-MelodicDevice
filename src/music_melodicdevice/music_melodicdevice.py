@@ -1,10 +1,6 @@
 import sys
 sys.path.append('./src')
 import music_melodicdevice.musical_scales as musical_scales
-from typing import List, Tuple, Optional, Union
-
-# TICKS = 96
-# OCTAVES = 10
 
 class Device:
     def __init__(self, scale_note='C', scale_name='chromatic', notes=[], verbose=0):
