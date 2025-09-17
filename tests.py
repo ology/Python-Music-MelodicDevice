@@ -47,7 +47,7 @@ class TestMelodicDevice(unittest.TestCase):
         self.assertEqual(got, expect)
 
     def test_inversion_diatonic(self):
-        device = Device(scale_name='major', verbose=True)
+        device = Device(scale_name='major', verbose=False)
         notes = ['C4', 'E4', 'D4', 'G4', 'C5']
         expect = [2, -1, 3, 3]
         got = device.intervals(notes)
