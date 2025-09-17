@@ -93,19 +93,11 @@ class TestMelodicDevice(unittest.TestCase):
         self.assertEqual(device.turn(1, 'D5', 1), [[1/4,'E5'], [1/4,'D5'], [1/4,'C5'], [1/4,'D5']])
         self.assertEqual(device.turn(1, 'D5', -1), [[1/4,'C5'], [1/4,'D5'], [1/4,'E5'], [1/4,'D5']])
 
-        expect = [[1/4,'D5'], [1/4,'E5'], [1/4,'D5'], [1/4,'E5']]
-        got = device.trill(1, 'D5', 2, 1)
-        self.assertEqual(got, expect)
-        expect = [[1/4,'D5'], [1/4,'C5'], [1/4,'D5'], [1/4,'C5']]
-        got = device.trill(1, 'D5', 2, -1)
-        self.assertEqual(got, expect)
+        self.assertEqual(device.trill(1, 'D5', 2, 1), [[1/4,'D5'], [1/4,'E5'], [1/4,'D5'], [1/4,'E5']])
+        self.assertEqual(device.trill(1, 'D5', 2, -1), [[1/4,'D5'], [1/4,'C5'], [1/4,'D5'], [1/4,'C5']])
 
-        expect = [[1/4,'D5'], [1/4,'E5'], [1/2,'D5']]
-        got = device.mordent(1, 'D5', 1)
-        self.assertEqual(got, expect)
-        expect = [[1/4,'D5'], [1/4,'C5'], [1/2,'D5']]
-        got = device.mordent(1, 'D5', -1)
-        self.assertEqual(got, expect)
+        self.assertEqual(device.mordent(1, 'D5', 1), [[1/4,'D5'], [1/4,'E5'], [1/2,'D5']])
+        self.assertEqual(device.mordent(1, 'D5', -1), [[1/4,'D5'], [1/4,'C5'], [1/2,'D5']])
 
     def test_ornament_D_major(self):
         device = Device(scale_note='D', scale_name='major')
