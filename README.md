@@ -125,7 +125,22 @@ Return a list of chromatic notes inclusively between the `from_pitch` and `to_pi
 
 ## MUSICAL EXAMPLES
 ```python
-# TODO
+from music21 import duration, note, stream
+from music_melodicdevice import Device
+
+device = Device(notes=['C4', 'E4', 'D4', 'G4'])
+notes = device.invert('C5')
+
+s = stream.Stream()
+p = stream.Part()
+
+for i in device.notes + notes:
+    n = note.Note(i)
+    n.duration = duration.Duration(1)
+    p.append(n)
+
+s.append(p)
+s.show()
 ```
 
 # SEE ALSO
