@@ -1,4 +1,4 @@
-# Music MelodicDevice
+# Music Melodic-Device
 Apply traditional transformations to music notes
 
 ## DESCRIPTION
