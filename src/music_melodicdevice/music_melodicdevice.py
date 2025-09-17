@@ -104,7 +104,7 @@ class Device:
             print(f"Durations: {x} + {y} = {z}")
         return [[y, grace_note], [z, pitch]]
 
-    def turn(self, duration, pitch, offset=0):
+    def turn(self, duration, pitch, offset=1):
         factor = 4
         i = self._find_pitch(pitch)
         above = self.scale[i + offset]
