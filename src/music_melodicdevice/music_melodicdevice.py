@@ -1,6 +1,10 @@
 import sys
 sys.path.append('./src')
 import music_melodicdevice.musical_scales as musical_scales
+from typing import List, Tuple, Optional, Union
+
+# TICKS = 96
+# OCTAVES = 10
 
 class Device:
     def __init__(self, scale_note='C', scale_name='chromatic', notes=[], verbose=0):
@@ -89,3 +93,96 @@ class Device:
         if self.verbose:
             print("Inverted:", named)
         return named
+
+    def grace_note(self, duration, pitch, offset=0):
+        i = self._find_pitch(pitch)
+        grace_note = self.scale[i + offset]
+        x = duration
+        y = 1/16 # 64th note
+        z = x - y
+        if self.verbose:
+            print(f"Durations: {x} + {y} = {z}")
+        return [[y, grace_note], [z, pitch]]
+
+    def turn(self, duration: str, pitch: Union[str, int], offset: int = 1):
+        number = 4
+        named = isinstance(pitch, str) and pitch[0] in 'ABCDEFG'
+        i, pitch_num = self._find_pitch(pitch)
+        above_num = self._scale[i + offset]
+        below_num = self._scale[i - offset]
+        if named:
+            pitch = self.pitchname(pitch_num)
+            above = self.pitchname(above_num)
+            below = self.pitchname(below_num)
+        else:
+            pitch = pitch_num
+            above = above_num
+            below = below_num
+        x = self._duration_ticks(duration)
+        z = round(x / number)
+        if self.verbose:
+            print(f"Durations: {x}, {z}")
+        return [[z, above], [z, pitch], [z, below], [z, pitch]]
+
+    def trill(self, duration: str, pitch: Union[str, int], number: int = 2, offset: int = 1):
+        named = isinstance(pitch, str) and pitch[0] in 'ABCDEFG'
+        i, pitch_num = self._find_pitch(pitch)
+        alt_num = self._scale[i + offset]
+        if named:
+            pitch = self.pitchname(pitch_num)
+            alt = self.pitchname(alt_num)
+        else:
+            pitch = pitch_num
+            alt = alt_num
+        x = self._duration_ticks(duration)
+        z = round(x / number / 2)
+        if self.verbose:
+            print(f"Durations: {x}, {z}")
+        trill = []
+        for _ in range(number):
+            trill.append([z, pitch])
+            trill.append([z, alt])
+        return trill
+
+    def mordent(self, duration: str, pitch: Union[str, int], offset: int = 1):
+        number = 4
+        named = isinstance(pitch, str) and pitch[0] in 'ABCDEFG'
+        i, pitch_num = self._find_pitch(pitch)
+        alt_num = self._scale[i + offset]
+        if named:
+            pitch = self.pitchname(pitch_num)
+            alt = self.pitchname(alt_num)
+        else:
+            pitch = pitch_num
+            alt = alt_num
+        x = self._duration_ticks(duration)
+        y = round(x / number)
+        z = round(x - (2 * y))
+        if self.verbose:
+            print(f"Durations: {x}, {y}, {z}")
+        return [[y, pitch], [y, alt], [z, pitch]]
+
+    def slide(self, duration: str, from_pitch: Union[str, int], to_pitch: Union[str, int]):
+        # Always use chromatic scale for slide
+        chromatic_scale = []
+        for octave in range(-1, OCTAVES - 1):
+            chromatic_scale += get_scale(self.scale_note, 'chromatic', octave)
+        named = isinstance(from_pitch, str) and from_pitch[0] in 'ABCDEFG'
+        i, from_num = self._find_pitch(from_pitch, chromatic_scale)
+        j, to_num = self._find_pitch(to_pitch, chromatic_scale)
+        start, end = (i, j) if i <= j else (j, i)
+        x = self._duration_ticks(duration)
+        y = end - start + 1
+        z = round(x / y)
+        if self.verbose:
+            print(f"Durations: {x}, {y}, {z}")
+        notes = []
+        for idx in range(start, end + 1):
+            midi_num = chromatic_scale[idx]
+            if named:
+                notes.append([z, self.pitchname(midi_num)])
+            else:
+                notes.append([z, midi_num])
+        if j < i:
+            notes = list(reversed(notes))
+        return notes
