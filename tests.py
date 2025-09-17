@@ -103,73 +103,73 @@ class TestMelodicDevice(unittest.TestCase):
         got = obj.slide(1, 'D5', 'B4')
         self.assertEqual(got, expect)
 
-    # def test_ornament_C_major(self):
-    #     obj = Device(scale_name='major')
+    def test_ornament_C_major(self):
+        obj = Device(scale_name='major')
 
-    #     expect = [['d6', 'E5'], ['d90', 'D5']]
-    #     got = obj.grace_note('qn', 'D5', 1)
-    #     self.assertEqual(got, expect)
-    #     expect = [['d6', 'D5'], ['d90', 'D5']]
-    #     got = obj.grace_note('qn', 'D5', 0)
-    #     self.assertEqual(got, expect)
-    #     expect = [['d6', 'C5'], ['d90', 'D5']]
-    #     got = obj.grace_note('qn', 'D5', -1)
-    #     self.assertEqual(got, expect)
+        expect = [[1/16, 'E5'], [1 - 1/16, 'D5']]
+        got = obj.grace_note(1, 'D5', offset=1)
+        self.assertEqual(got, expect)
+        expect = [[1/16, 'D5'], [1 - 1/16, 'D5']]
+        got = obj.grace_note(1, 'D5', 0)
+        self.assertEqual(got, expect)
+        expect = [[1/16, 'C5'], [1 - 1/16, 'D5']]
+        got = obj.grace_note(1, 'D5', -1)
+        self.assertEqual(got, expect)
 
-    #     expect = [['d24','E5'], ['d24','D5'], ['d24','C5'], ['d24','D5']]
-    #     got = obj.turn('qn', 'D5', 1)
-    #     self.assertEqual(got, expect)
-    #     expect = [['d24','C5'], ['d24','D5'], ['d24','E5'], ['d24','D5']]
-    #     got = obj.turn('qn', 'D5', -1)
-    #     self.assertEqual(got, expect)
+        expect = [[1/4,'E5'], [1/4,'D5'], [1/4,'C5'], [1/4,'D5']]
+        got = obj.turn(1, 'D5', 1)
+        self.assertEqual(got, expect)
+        expect = [[1/4,'C5'], [1/4,'D5'], [1/4,'E5'], [1/4,'D5']]
+        got = obj.turn(1, 'D5', -1)
+        self.assertEqual(got, expect)
 
-    #     expect = [['d24','D5'], ['d24','E5'], ['d24','D5'], ['d24','E5']]
-    #     got = obj.trill('qn', 'D5', 2, 1)
-    #     self.assertEqual(got, expect)
-    #     expect = [['d24','D5'], ['d24','C5'], ['d24','D5'], ['d24','C5']]
-    #     got = obj.trill('qn', 'D5', 2, -1)
-    #     self.assertEqual(got, expect)
+        expect = [[1/4,'D5'], [1/4,'E5'], [1/4,'D5'], [1/4,'E5']]
+        got = obj.trill(1, 'D5', 2, 1)
+        self.assertEqual(got, expect)
+        expect = [[1/4,'D5'], [1/4,'C5'], [1/4,'D5'], [1/4,'C5']]
+        got = obj.trill(1, 'D5', 2, -1)
+        self.assertEqual(got, expect)
 
-    #     expect = [['d24','D5'], ['d24','E5'], ['d48','D5']]
-    #     got = obj.mordent('qn', 'D5', 1)
-    #     self.assertEqual(got, expect)
-    #     expect = [['d24','D5'], ['d24','C5'], ['d48','D5']]
-    #     got = obj.mordent('qn', 'D5', -1)
-    #     self.assertEqual(got, expect)
+        expect = [[1/4,'D5'], [1/4,'E5'], [1/2,'D5']]
+        got = obj.mordent(1, 'D5', 1)
+        self.assertEqual(got, expect)
+        expect = [[1/4,'D5'], [1/4,'C5'], [1/2,'D5']]
+        got = obj.mordent(1, 'D5', -1)
+        self.assertEqual(got, expect)
 
-    # def test_ornament_D_major(self):
-    #     obj = Device(scale_note='D', scale_name='major')
+    def test_ornament_D_major(self):
+        obj = Device(scale_note='D', scale_name='major')
 
-    #     expect = [['d6', 'E5'], ['d90', 'D5']]
-    #     got = obj.grace_note('qn', 'D5', 1)
-    #     self.assertEqual(got, expect)
-    #     expect = [['d6', 'D5'], ['d90', 'D5']]
-    #     got = obj.grace_note('qn', 'D5', 0)
-    #     self.assertEqual(got, expect)
-    #     expect = [['d6', 'C#5'], ['d90', 'D5']]
-    #     got = obj.grace_note('qn', 'D5', -1)
-    #     self.assertEqual(got, expect)
+        expect = [[1/16, 'E5'], [1 - 1/16, 'D5']]
+        got = obj.grace_note(1, 'D5', 1)
+        self.assertEqual(got, expect)
+        expect = [[1/16, 'D5'], [1 - 1/16, 'D5']]
+        got = obj.grace_note(1, 'D5', 0)
+        self.assertEqual(got, expect)
+        expect = [[1/16, 'C#5'], [1 - 1/16, 'D5']]
+        got = obj.grace_note(1, 'D5', -1)
+        self.assertEqual(got, expect)
 
-    #     expect = [['d24','E5'], ['d24','D5'], ['d24','C#5'], ['d24','D5']]
-    #     got = obj.turn('qn', 'D5', 1)
-    #     self.assertEqual(got, expect)
-    #     expect = [['d24','C#5'], ['d24','D5'], ['d24','E5'], ['d24','D5']]
-    #     got = obj.turn('qn', 'D5', -1)
-    #     self.assertEqual(got, expect)
+        expect = [[1/4,'E5'], [1/4,'D5'], [1/4,'C#5'], [1/4,'D5']]
+        got = obj.turn(1, 'D5', 1)
+        self.assertEqual(got, expect)
+        expect = [[1/4,'C#5'], [1/4,'D5'], [1/4,'E5'], [1/4,'D5']]
+        got = obj.turn(1, 'D5', -1)
+        self.assertEqual(got, expect)
 
-    #     expect = [['d24','D5'], ['d24','E5'], ['d24','D5'], ['d24','E5']]
-    #     got = obj.trill('qn', 'D5', 2, 1)
-    #     self.assertEqual(got, expect)
-    #     expect = [['d24','D5'], ['d24','C#5'], ['d24','D5'], ['d24','C#5']]
-    #     got = obj.trill('qn', 'D5', 2, -1)
-    #     self.assertEqual(got, expect)
+        expect = [[1/4,'D5'], [1/4,'E5'], [1/4,'D5'], [1/4,'E5']]
+        got = obj.trill(1, 'D5', 2, 1)
+        self.assertEqual(got, expect)
+        expect = [[1/4,'D5'], [1/4,'C#5'], [1/4,'D5'], [1/4,'C#5']]
+        got = obj.trill(1, 'D5', 2, -1)
+        self.assertEqual(got, expect)
 
-    #     expect = [['d24','D5'], ['d24','E5'], ['d48','D5']]
-    #     got = obj.mordent('qn', 'D5', 1)
-    #     self.assertEqual(got, expect)
-    #     expect = [['d24','D5'], ['d24','C#5'], ['d48','D5']]
-    #     got = obj.mordent('qn', 'D5', -1)
-    #     self.assertEqual(got, expect)
+        expect = [[1/4,'D5'], [1/4,'E5'], [1/2,'D5']]
+        got = obj.mordent(1, 'D5', 1)
+        self.assertEqual(got, expect)
+        expect = [[1/4,'D5'], [1/4,'C#5'], [1/2,'D5']]
+        got = obj.mordent(1, 'D5', -1)
+        self.assertEqual(got, expect)
 
 if __name__ == '__main__':
     unittest.main()
