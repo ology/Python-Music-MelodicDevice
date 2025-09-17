@@ -89,9 +89,9 @@ class TestMelodicDevice(unittest.TestCase):
         got = obj.trill(1, 'D5', number=2, offset=-1)
         self.assertEqual(got, expect)
 
-    #     expect = [['d24','D5'], ['d24','D#5'], ['d48','D5']]
-    #     got = obj.mordent('qn', 'D5', 1)
-    #     self.assertEqual(got, expect)
+        expect = [[1/4,'D5'], [1/4,'D#5'], [1/2,'D5']]
+        got = obj.mordent(1, 'D5', offset=1)
+        self.assertEqual(got, expect)
     #     expect = [['d24','D5'], ['d24','C#5'], ['d48','D5']]
     #     got = obj.mordent('qn', 'D5', -1)
     #     self.assertEqual(got, expect)

@@ -128,20 +128,13 @@ class Device:
             trill.append([z, alt])
         return trill
 
-    def mordent(self, duration: str, pitch: Union[str, int], offset: int = 1):
-        number = 4
-        named = isinstance(pitch, str) and pitch[0] in 'ABCDEFG'
-        i, pitch_num = self._find_pitch(pitch)
-        alt_num = self._scale[i + offset]
-        if named:
-            pitch = self.pitchname(pitch_num)
-            alt = self.pitchname(alt_num)
-        else:
-            pitch = pitch_num
-            alt = alt_num
-        x = self._duration_ticks(duration)
-        y = round(x / number)
-        z = round(x - (2 * y))
+    def mordent(self, duration, pitch, offset=1):
+        factor = 4
+        i = self._find_pitch(pitch)
+        alt = self.scale[i + offset]
+        x = duration
+        y = x / factor
+        z = x - (2 * y)
         if self.verbose:
             print(f"Durations: {x}, {y}, {z}")
         return [[y, pitch], [y, alt], [z, pitch]]
