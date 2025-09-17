@@ -28,7 +28,9 @@ notes = device.transpose(2, ['C4', 'E4', 'D#4', 'G4', 'C5'])
 notes = device.invert('C4', ['C4', 'E4', 'D#4', 'G4', 'C5'])
 # ['C4', 'A3', None, 'F3', 'C3']
 
-# Ornamentation
+# Ornamentation:
+
+# chromatic
 device = Device()
 
 notes = device.grace_note(1, 'D5') # [[1/16, 'D5'], [1 - 1/16, 'D5']])
