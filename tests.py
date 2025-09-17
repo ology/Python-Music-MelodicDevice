@@ -64,5 +64,11 @@ class TestMelodicDevice(unittest.TestCase):
         got = device.invert('B3', notes)
         self.assertEqual(got, expect)
 
+    def test_inversion_unknown_note(self):
+        device = Device(scale_name='major', verbose=False)
+        expect = ['C4', 'A3', None, 'F3', 'C3']
+        got = device.invert('C4', ['C4', 'E4', 'D#4', 'G4', 'C5'])
+        self.assertEqual(got, expect)
+
 if __name__ == '__main__':
     unittest.main()

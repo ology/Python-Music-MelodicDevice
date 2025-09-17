@@ -70,8 +70,20 @@ class Device:
             print("Axis, Notes:", axis_note, notes)
         axis = self._find_pitch(axis_note)
         nums = [ self._find_pitch(n) for n in notes ]
-        inverted = [ axis - (n - axis) for n in nums ]
-        named = [ self.scale[n] for n in inverted ]
+        inverted = []
+        for n in nums:
+            if n == -1:
+                inv = None
+            else:
+                inv = axis - (n - axis)
+            inverted.append(inv)
+        named = []
+        for x in inverted:
+            if not x:
+                name = None
+            else:
+                name = self.scale[x]
+            named.append(name)
         if self.verbose:
             print("Inverted:", named)
         return named
