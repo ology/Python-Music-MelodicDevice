@@ -109,6 +109,20 @@ Return a list of pairs of notes, given the `number`, in place of the given `pitc
 
 The first of the pair is part of the original note, and the second is the note plus the given `offset`.
 
+### mordent
+```python
+notes = device.mordent(duration, pitch, offset=offset)
+```
+
+Return a list of three notes in place of the given `pitch` and `duration`.
+
+### slide
+```python
+notes = device.slide(duration, from_pitch, to_pitch)
+```
+
+Return a list of chromatic notes inclusively between the `from_pitch` and `to_pitch`, in place of the given `pitch` and `duration`.
+
 ## MUSICAL EXAMPLES
 ```python
 # TODO
