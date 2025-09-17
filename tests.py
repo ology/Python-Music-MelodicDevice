@@ -62,7 +62,7 @@ class TestMelodicDevice(unittest.TestCase):
         self.assertEqual(device.invert('C4', ['C4', 'E4', 'D#4', 'G4', 'C5']),
                          ['C4', 'A3', None, 'F3', 'C3'])
 
-    def test_chromatic(self):
+    def test_ornament_chromatic(self):
         obj = Device()
 
         expect = [[1/16, 'D5'], [1 - 1/16, 'D5']]
@@ -103,7 +103,7 @@ class TestMelodicDevice(unittest.TestCase):
     #     got = obj.slide('qn', 'D5', 'B4')
     #     self.assertEqual(got, expect)
 
-    # def test_C_major(self):
+    # def test_ornament_C_major(self):
     #     obj = Device(scale_name='major')
 
     #     expect = [['d6', 'E5'], ['d90', 'D5']]
@@ -137,7 +137,7 @@ class TestMelodicDevice(unittest.TestCase):
     #     got = obj.mordent('qn', 'D5', -1)
     #     self.assertEqual(got, expect)
 
-    # def test_D_major(self):
+    # def test_ornament_D_major(self):
     #     obj = Device(scale_note='D', scale_name='major')
 
     #     expect = [['d6', 'E5'], ['d90', 'D5']]
