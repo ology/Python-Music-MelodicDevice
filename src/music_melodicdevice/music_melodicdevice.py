@@ -1,4 +1,6 @@
-import musical_scales
+import sys
+sys.path.append('./src')
+import music_melodicdevice.musical_scales as musical_scales
 
 class Device:
     def __init__(self, scale_note='C', scale_name='chromatic', notes=[], verbose=0):
