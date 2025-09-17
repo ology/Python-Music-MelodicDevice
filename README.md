@@ -121,7 +121,7 @@ Return a list of three notes in place of the given `pitch` and `duration`.
 notes = device.slide(duration, from_pitch, to_pitch)
 ```
 
-Return a list of chromatic notes inclusively between the `from_pitch` and `to_pitch`, in place of the given `pitch` and `duration`.
+Return a list of chromatic notes inclusively between the `from_pitch` and `to_pitch`, in place of the given `duration`.
 
 ## MUSICAL EXAMPLES
 ```python
