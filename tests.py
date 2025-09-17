@@ -86,7 +86,7 @@ class TestMelodicDevice(unittest.TestCase):
     def test_ornament_C_major(self):
         device = Device(scale_name='major')
 
-        self.assertEqual(device.grace_note(1, 'D5', offset=0), [[1/16, 'D5'], [1 - 1/16, 'D5']])
+        self.assertEqual(device.grace_note(1, 'D5'), [[1/16, 'D5'], [1 - 1/16, 'D5']])
         self.assertEqual(device.grace_note(1, 'D5', offset=1), [[1/16, 'E5'], [1 - 1/16, 'D5']])
         self.assertEqual(device.grace_note(1, 'D5', offset=-1), [[1/16, 'C5'], [1 - 1/16, 'D5']])
 
