@@ -1,9 +1,11 @@
 # Music Melodic-Device
-Apply traditional transformations to music notes
+Apply chromatic and diatonic transformations to music notes
 
 ## DESCRIPTION
 
-TODO
+This class provides methods to do traditional transformations to music notes.
+
+The three major categories are transpositions, inversions, and five types of ornamentation.
 
 ## SYNOPSIS
 ```python
@@ -58,17 +60,62 @@ notes = device.grace_note(1, 'D5') # [[1/16, 'D5'], [1 - 1/16, 'D5']])
 notes = device.grace_note(1, 'D5', offset=1) # [[1/16, 'E5'], [1 - 1/16, 'D5']])
 notes = device.grace_note(1, 'D5', offset=-1) # [[1/16, 'C5'], [1 - 1/16, 'D5']])
 
-notes = device.turn(1, 'D5', 1) # [[1/4,'E5'], [1/4,'D5'], [1/4,'C5'], [1/4,'D5']])
-notes = device.turn(1, 'D5', -1) # [[1/4,'C5'], [1/4,'D5'], [1/4,'E5'], [1/4,'D5']])
+notes = device.turn(1, 'D5', offset=1) # [[1/4,'E5'], [1/4,'D5'], [1/4,'C5'], [1/4,'D5']])
+notes = device.turn(1, 'D5', offset=-1) # [[1/4,'C5'], [1/4,'D5'], [1/4,'E5'], [1/4,'D5']])
 
-notes = device.trill(1, 'D5', 2, 1) # [[1/4,'D5'], [1/4,'E5'], [1/4,'D5'], [1/4,'E5']])
-notes = device.trill(1, 'D5', 2, -1) # [[1/4,'D5'], [1/4,'C5'], [1/4,'D5'], [1/4,'C5']])
+notes = device.trill(1, 'D5', number=2, offset=1) # [[1/4,'D5'], [1/4,'E5'], [1/4,'D5'], [1/4,'E5']])
+notes = device.trill(1, 'D5', number=2, offset=-1) # [[1/4,'D5'], [1/4,'C5'], [1/4,'D5'], [1/4,'C5']])
 
-notes = device.mordent(1, 'D5', 1) # [[1/4,'D5'], [1/4,'E5'], [1/2,'D5']])
-notes = device.mordent(1, 'D5', -1) # [[1/4,'D5'], [1/4,'C5'], [1/2,'D5']])
+notes = device.mordent(1, 'D5', offset=1) # [[1/4,'D5'], [1/4,'E5'], [1/2,'D5']])
+notes = device.mordent(1, 'D5', offset=-1) # [[1/4,'D5'], [1/4,'C5'], [1/2,'D5']])
 ```
+
+## METHODS
+
+### transpose
+```python
+notes = device.transpose(amount)
+```
+
+Transpose a note by an integer amount.
+
+### invert
+```python
+notes = device.invert(axis_note, note_list)
+```
+
+Invert the `note_list` of named notes, around the named `axis_note`.
+
+### grace_note
+```python
+notes = device.grace_note(duration, pitch, offset=offset)
+```
+
+Return a list with a 64th-note grace-note and the original named `pitch` with octave. The grace-note is `offset` semi-tone steps from the given `pitch`. The `duration` is the total, original length of the `pitch`.
+
+### turn
+```python
+notes = device.turn(duration, pitch, offset=offset)
+```
+
+Return a list of four notes, having an up-down pattern, in place of the given `pitch` and `duration`.
+
+### trill
+```python
+notes = device.trill(duration, pitch, number=number, offset=offset)
+```
+
+Return a list of pairs of notes, given the `number`, in place of the given `pitch` and `duration`.
+
+The first of the pair is part of the original note, and the second is the note plus the given `offset`.
 
 ## MUSICAL EXAMPLES
 ```python
 # TODO
 ```
+
+# SEE ALSO
+
+https://en.wikipedia.org/wiki/Inversion_(music)#Melodies
+
+https://en.wikipedia.org/wiki/Ornament_(music)
