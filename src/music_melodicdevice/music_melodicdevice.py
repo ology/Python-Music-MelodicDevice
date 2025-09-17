@@ -104,22 +104,13 @@ class Device:
             print(f"Durations: {x} + {y} = {z}")
         return [[y, grace_note], [z, pitch]]
 
-    def turn(self, duration: str, pitch: Union[str, int], offset: int = 1):
-        number = 4
-        named = isinstance(pitch, str) and pitch[0] in 'ABCDEFG'
-        i, pitch_num = self._find_pitch(pitch)
-        above_num = self._scale[i + offset]
-        below_num = self._scale[i - offset]
-        if named:
-            pitch = self.pitchname(pitch_num)
-            above = self.pitchname(above_num)
-            below = self.pitchname(below_num)
-        else:
-            pitch = pitch_num
-            above = above_num
-            below = below_num
-        x = self._duration_ticks(duration)
-        z = round(x / number)
+    def turn(self, duration, pitch, offset=0):
+        factor = 4
+        i = self._find_pitch(pitch)
+        above = self.scale[i + offset]
+        below = self.scale[i - offset]
+        x = duration
+        z = x / factor
         if self.verbose:
             print(f"Durations: {x}, {z}")
         return [[z, above], [z, pitch], [z, below], [z, pitch]]
