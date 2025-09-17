@@ -14,7 +14,7 @@ device = Device(notes=['C4', 'E4', 'D4', 'G4', 'C5'])
 transposed = device.transpose(2) # ['D4', 'F#4', 'E4', 'A4', 'D5']
 inverted = device.invert('C4') # ['C4', 'G#3', 'A#3', 'F3', 'C3']
 
-# diatonic transposition:
+# diatonic transformation:
 device = Device(scale_name='major', verbose=True)
 device.notes = ['C4', 'E4', 'D4', 'G4', 'C5']
 transposed = device.transpose(2) # ['E4', 'G4', 'F4', 'B4', 'E5']
