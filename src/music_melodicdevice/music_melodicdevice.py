@@ -8,6 +8,13 @@ class Device:
         self.verbose = verbose
         self.build_scale()
 
+    def _find_pitch(self, p):
+        try:
+            i = self.scale.index(p)
+        except ValueError:
+            i = -1
+        return i
+
     def build_scale(self, name=None):
         if name:
             self.scale_name = name
@@ -36,13 +43,6 @@ class Device:
         if self.verbose:
             print('Transposed:', transposed)
         return transposed
-
-    def _find_pitch(self, p):
-        try:
-            i = self.scale.index(p)
-        except ValueError:
-            i = -1
-        return i
 
     def intervals(self, notes=[]):
         if not notes:
