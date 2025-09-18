@@ -5,7 +5,7 @@ from music21 import pitch, note
 import re
 
 class Device:
-    def __init__(self, scale_note='C', scale_name='chromatic', notes=[], flat=False, verbose=0):
+    def __init__(self, scale_note='C', scale_name='chromatic', notes=[], flat=False, verbose=False):
         self.scale_note = scale_note
         self.scale_name = scale_name
         self.notes = notes
