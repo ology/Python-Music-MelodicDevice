@@ -30,12 +30,12 @@ class Device:
         for i in range(-1,10):
             s = musical_scales.scale(self.scale_note, self.scale_name, starting_octave=i)
             scale.append(s[:-1])
+        scale = [ f"{x}" for y in scale for x in y ]
         if self.flat:
             top = scale[:12]
             bottom = scale[13:]
-            print(top)
             temp = []
-            for n in scale:
+            for n in bottom:
                 # print(n)
                 m = note.Note(n)
                 if m.pitch.accidental:
@@ -43,9 +43,8 @@ class Device:
                     temp.append(p.nameWithOctave)
                 else:
                     temp.append(m.nameWithOctave)
-            scale = temp
+            scale = top + temp
         # else:
-        scale = [ f"{x}" for y in scale for x in y ]
         if self.verbose:
             print("Scale:", scale, len(scale))
         return scale
