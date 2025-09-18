@@ -7,6 +7,8 @@ This class provides methods to do chromatic and diatonic transformations to musi
 
 The three major categories are transpositions, inversions, and five types of ornamentation.
 
+Accidental notes are returned as "sharps" by default. To get "flats" back, set the `flat` attribute to `True`. Also, please note that the `music21` library uses the hyphen (`-`) to indicate the flat accidental, not 'b'. Sharp is a '#', though.
+
 ## SYNOPSIS
 ```python
 from music_melodicdevice import Device
@@ -29,6 +31,14 @@ notes = device.transpose(2, ['C4', 'E4', 'D#4', 'G4', 'C5'])
 # ['E4', 'G4', None, 'B4', 'E5']
 notes = device.invert('C4', ['C4', 'E4', 'D#4', 'G4', 'C5'])
 # ['C4', 'A3', None, 'F3', 'C3']
+
+# accidental notes:
+device = Device(scale_note='G', scale_name='major')
+device.notes = ['C4', 'E4', 'D4', 'F#4', 'C5']
+notes = device.transpose(2) # ['E4', 'G4', 'F#4', 'A4', 'E5'])
+device = Device(scale_note='G', scale_name='major', flat=True)
+device.notes = ['C4', 'E4', 'D4', 'F#4', 'C5']
+notes = device.transpose(2) # ['E4', 'G4', 'G-4', 'A4', 'E5'])
 
 # Ornamentation:
 

@@ -44,7 +44,6 @@ class Device:
                 else:
                     temp.append(m.nameWithOctave)
             scale = top + temp
-        # else:
         if self.verbose:
             print("Scale:", scale, len(scale))
         return scale
