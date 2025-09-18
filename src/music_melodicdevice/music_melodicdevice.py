@@ -2,6 +2,7 @@ import sys
 sys.path.append('./src')
 import music_melodicdevice.musical_scales as musical_scales
 from music21 import pitch, note
+import re
 
 class Device:
     def __init__(self, scale_note='C', scale_name='chromatic', notes=[], flat=False, verbose=0):
@@ -13,14 +14,19 @@ class Device:
         self.scale = self.build_scale()
 
     def _find_pitch(self, p):
+        m = re.search(r'^.b\d$', p)
+        if m:
+            p = re.sub(r'b', '-', p)
         try:
             i = self.scale.index(p)
         except ValueError:
             try:
                 n = pitch.Pitch(p).getEnharmonic()
+                print("N:",n)
                 i = self.scale.index(n.nameWithOctave)
             except ValueError:
                 i = -1
+        print("I:",i)
         return i
 
     def build_scale(self, name=None):
@@ -36,7 +42,6 @@ class Device:
             bottom = scale[13:]
             temp = []
             for n in bottom:
-                # print(n)
                 m = note.Note(n)
                 if m.pitch.accidental:
                     p = pitch.Pitch(m.nameWithOctave).getEnharmonic()
