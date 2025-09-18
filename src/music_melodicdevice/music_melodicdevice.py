@@ -22,11 +22,9 @@ class Device:
         except ValueError:
             try:
                 n = pitch.Pitch(p).getEnharmonic()
-                print("N:",n)
                 i = self.scale.index(n.nameWithOctave)
             except ValueError:
                 i = -1
-        print("I:",i)
         return i
 
     def build_scale(self, name=None):
