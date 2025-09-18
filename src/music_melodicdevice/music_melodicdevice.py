@@ -29,19 +29,21 @@ class Device:
         scale = []
         for i in range(-1,10):
             s = musical_scales.scale(self.scale_note, self.scale_name, starting_octave=i)
+            # s = [ f"{x}" for x in scale ]
             scale.append(s[:-1])
-        if self.flat:
-            temp = []
-            for n in scale:
-                m = note.Note(f"{n}")
-                if m.pitch.accidental:
-                    p = pitch.Pitch(m.nameWithOctave).getEnharmonic()
-                    temp.append(p.nameWithOctave)
-                else:
-                    temp.append(m.nameWithOctave)
-            scale = temp
-        else:
-            scale = [ f"{x}" for y in scale for x in y ]
+        # if self.flat:
+        #     temp = []
+        #     for n in scale:
+        #         print(n)
+        #         m = note.Note(n)
+        #         if m.pitch.accidental:
+        #             p = pitch.Pitch(m.nameWithOctave).getEnharmonic()
+        #             temp.append(p.nameWithOctave)
+        #         else:
+        #             temp.append(m.nameWithOctave)
+        #     scale = temp
+        # else:
+        scale = [ f"{x}" for y in scale for x in y ]
         if self.verbose:
             print("Scale:", scale, len(scale))
         return scale
