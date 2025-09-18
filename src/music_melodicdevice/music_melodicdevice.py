@@ -1,13 +1,14 @@
 import sys
 sys.path.append('./src')
 import music_melodicdevice.musical_scales as musical_scales
-from music21 import pitch
+from music21 import pitch, note
 
 class Device:
-    def __init__(self, scale_note='C', scale_name='chromatic', notes=[], verbose=0):
+    def __init__(self, scale_note='C', scale_name='chromatic', notes=[], flat=False, verbose=0):
         self.scale_note = scale_note
         self.scale_name = scale_name
         self.notes = notes
+        self.flat = flat
         self.verbose = verbose
         self.scale = self.build_scale()
 
@@ -29,7 +30,18 @@ class Device:
         for i in range(-1,10):
             s = musical_scales.scale(self.scale_note, self.scale_name, starting_octave=i)
             scale.append(s[:-1])
-        scale = [ f"{x}" for s in scale for x in s ]
+        if self.flat:
+            temp = []
+            for n in scale:
+                m = note.Note(f"{n}")
+                if m.pitch.accidental:
+                    p = pitch.Pitch(m.nameWithOctave).getEnharmonic()
+                    temp.append(p.nameWithOctave)
+                else:
+                    temp.append(m.nameWithOctave)
+            scale = temp
+        else:
+            scale = [ f"{x}" for y in scale for x in y ]
         if self.verbose:
             print("Scale:", scale, len(scale))
         return scale
