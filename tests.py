@@ -130,8 +130,10 @@ class TestMelodicDevice(unittest.TestCase):
         self.assertEqual(device.mordent(1, 'D5', -1), [[1/4,'D5'], [1/4,'C#5'], [1/2,'D5']])
 
     def test_arpeggiation(self):
-        device = Device(verbose=True)
+        device = Device(verbose=False)
         self.assertEqual(device.arp(['C4','E4','G4']), [[1/3, 'C4'], [1/3, 'E4'], [1/3, 'G4']])
+        device.pattern = [2,1,0]
+        self.assertEqual(device.arp(['C4','E4','G4']), [[1/3, 'G4'], [1/3, 'E4'], [1/3, 'C4']])
 
 if __name__ == '__main__':
     unittest.main()
