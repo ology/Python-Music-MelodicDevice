@@ -13,6 +13,16 @@ Accidental notes are returned as "sharps" by default. To get "flats" back, set t
 ```python
 from music_melodicdevice import Device
 
+device = Device( # defaults:
+    scale_note='C'
+    scale_name='chromatic'
+    notes=[] # notes set and used by devices
+    flat=False # return notes with accidentals as flats instead of sharps
+    pattern=[0,1,2], # the arpeggiation pattern (up)
+    repeats=1, # how many times to repeat the arpeggiation pattern
+    verbose=False
+)
+
 # default scale: chromatic
 device = Device(notes=['C4', 'E4', 'D4', 'G4', 'C5'])
 notes = device.transpose(2) # ['D4', 'F#4', 'E4', 'A4', 'D5']
@@ -78,6 +88,12 @@ notes = device.trill(1, 'D5', number=2, offset=-1) # [[1/4,'D5'], [1/4,'C5'], [1
 
 notes = device.mordent(1, 'D5', offset=1) # [[1/4,'D5'], [1/4,'E5'], [1/2,'D5']])
 notes = device.mordent(1, 'D5', offset=-1) # [[1/4,'D5'], [1/4,'C5'], [1/2,'D5']])
+
+# arpeggiation
+device = Device()
+notes = device.arp(['C4','E4','G4']) # [ [1/3, 'C4'], [1/3, 'E4'], [1/3, 'G4'] ]
+device.pattern = [2,1,0]
+notes = device.arp(['C4','E4','G4']) # [ [1/3, 'G4'], [1/3, 'E4'], [1/3, 'C4'] ]
 ```
 
 ## METHODS
@@ -132,6 +148,17 @@ notes = device.slide(duration, from_pitch, to_pitch)
 ```
 
 Return a list of chromatic notes inclusively between the `from_pitch` and `to_pitch`, in place of the given `duration`.
+
+### arp
+```python
+notes = device.arp() # use defaults
+notes = device.arp(notes)
+notes = device.arp(notes, duration)
+notes = device.arp(notes, duration, pattern)
+notes = device.arp(notes, duration, pattern, repeats)
+```
+
+Return a list of the number of `notes`, selected by the arpeggiated `pattern`, and distributed across the `duration`.
 
 ## MUSICAL EXAMPLES
 ```python

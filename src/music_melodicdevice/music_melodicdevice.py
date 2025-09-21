@@ -181,7 +181,9 @@ class Device:
         return notes
 
     def arp(self, notes, duration=1, pattern=[], repeats=1):
-        if not len(pattern):
+        if not notes:
+            notes = self.notes
+        if not pattern:
             pattern = self.pattern
         arp = []
         for i in range(repeats):
