@@ -5,11 +5,13 @@ from music21 import pitch, note
 import re
 
 class Device:
-    def __init__(self, scale_note='C', scale_name='chromatic', notes=[], flat=False, verbose=False):
+    def __init__(self, scale_note='C', scale_name='chromatic', notes=[], pattern=[0,1,2], repeats=1, flat=False, verbose=False):
         self.scale_note = scale_note
         self.scale_name = scale_name
         self.notes = notes
         self.flat = flat
+        self.pattern = pattern
+        self.repeats = repeats
         self.verbose = verbose
         self.scale = self.build_scale()
 
@@ -177,3 +179,15 @@ class Device:
             notes = list(reversed(notes))
         self.scale = self.build_scale(scale_name)
         return notes
+
+    def arp(self, notes, duration=1, pattern=[], repeats=1):
+        if not len(pattern):
+            pattern = self.pattern
+        arp = []
+        for i in range(repeats):
+            for p in pattern:
+                d = duration / len(notes)
+                arp.append([ d, notes[p] ])
+        if self.verbose:
+            print("Arp:", arp)
+        return arp

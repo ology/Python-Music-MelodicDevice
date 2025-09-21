@@ -12,7 +12,7 @@ class TestMelodicDevice(unittest.TestCase):
         self.assertEqual(device.transpose(-4), ['G#3', 'C4', 'A#3', 'D#4', 'G#4'])
         device = Device(notes=['C4', 'Db4', 'F#4', 'C5'], verbose=False)
         self.assertEqual(device.transpose(2), ['D4', 'D#4', 'G#4', 'D5'])
-        device = Device(notes=['C4', 'Db4', 'F#4', 'C5'], flat=True, verbose=True)
+        device = Device(notes=['C4', 'Db4', 'F#4', 'C5'], flat=True, verbose=False)
         self.assertEqual(device.transpose(2), ['D4', 'E-4', 'A-4', 'D5'])
         device = Device(notes=['C4', 'D-4', 'F#4', 'C5'], verbose=False)
         self.assertEqual(device.transpose(2), ['D4', 'D#4', 'G#4', 'D5'])
@@ -128,6 +128,10 @@ class TestMelodicDevice(unittest.TestCase):
 
         self.assertEqual(device.mordent(1, 'D5', 1), [[1/4,'D5'], [1/4,'E5'], [1/2,'D5']])
         self.assertEqual(device.mordent(1, 'D5', -1), [[1/4,'D5'], [1/4,'C#5'], [1/2,'D5']])
+
+    def test_arpeggiation(self):
+        device = Device(verbose=True)
+        self.assertEqual(device.arp(['C4','E4','G4']), [[1/3, 'C4'], [1/3, 'E4'], [1/3, 'G4']])
 
 if __name__ == '__main__':
     unittest.main()
