@@ -1,3 +1,7 @@
+0.2.2 2025-09-18
+    - Improve the documentation.
+    - Improve the tests.
+
 0.2.1 2025-09-18
     - Fix the arpeggiation logic.
 

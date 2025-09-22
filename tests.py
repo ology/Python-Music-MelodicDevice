@@ -134,6 +134,17 @@ class TestMelodicDevice(unittest.TestCase):
         self.assertEqual(device.arp(['C4','E4','G4']), [[1/3, 'C4'], [1/3, 'E4'], [1/3, 'G4']])
         self.assertEqual(device.arp(['C4','E4','G4'], arp_type='down'), [[1/3, 'G4'], [1/3, 'E4'], [1/3, 'C4']])
         self.assertEqual(device.arp(['C4','E4','G4'], arp_type=[0,2,1]), [[1/3, 'C4'], [1/3, 'G4'], [1/3, 'E4']])
+        self.assertTrue(callable(device.arp_type))
+        got = device.arp_type()
+        self.assertTrue(isinstance(got, dict))
+        got = device.arp_type('up')
+        self.assertTrue(callable(got))
+        device.arp_type('foo', lambda notes: [0,1])
+        got = device.arp_type('foo')
+        self.assertTrue(callable(got))
+        self.assertEqual(device.arp([60], arp_type='foo'), [[1, 60]])
+        self.assertEqual(device.arp([60,64], arp_type='foo'), [[1/2, 60],[1/2, 64]])
+        self.assertEqual(device.arp([60,64,67], arp_type='foo'), [[1/3, 60],[1/3, 64],[1/3, 60]])
 
 if __name__ == '__main__':
     unittest.main()

@@ -160,6 +160,20 @@ notes = device.arp(notes, repeats=repeats)
 
 Return a list of the number of `notes`, selected by the arpeggiated `pattern`, and distributed across the `duration`.
 
+### arp_type
+```python
+device.arp_type() # get all known types
+device.arp_type(arp_type='up') # get the coderef of the 'up' type
+# add a new type:
+device.arp_type(arp_type='foo', coderef=lambda notes: [0,2,1,2])
+# or use a notes list to be given in `arp`, as with 'random':
+lambda notes: [ int(random.random() * len(notes)) for _ in notes ]
+```
+
+Return or set known arpeggiation types.
+
+Note that the `lambda` for setting a new type requires a single argument, whether it is used or not.
+
 ## MUSICAL EXAMPLES
 ```python
 from music21 import duration, note, stream
