@@ -2,18 +2,34 @@ import sys
 sys.path.append('./src')
 import music_melodicdevice.musical_scales as musical_scales
 from music21 import pitch, note
+import random
 import re
 
+class CircularArray:
+    def __init__(self, data):
+        self.data = list(data)
+        self.index = 0
+
+    def current(self):
+        return self.data[self.index]
+
+    def next(self):
+        self.index = (self.index + 1) % len(self.data)
+
 class Device:
-    def __init__(self, scale_note='C', scale_name='chromatic', notes=[], pattern=[0,1,2], repeats=1, flat=False, verbose=False):
+    def __init__(self, scale_note='C', scale_name='chromatic', notes=[], flat=False, verbose=False):
         self.scale_note = scale_note
         self.scale_name = scale_name
         self.notes = notes
         self.flat = flat
-        self.pattern = pattern
-        self.repeats = repeats
         self.verbose = verbose
         self.scale = self.build_scale()
+        self._dispatch = {
+            'up': lambda notes: list(range(len(notes))),
+            'down': lambda notes: list(reversed(range(len(notes)))),
+            'updown': lambda notes: list(range(len(notes))) + list(reversed(range(1, len(notes) - 1))),
+            'random': lambda notes: [int(random.random() * len(notes)) for _ in notes],
+        }
 
     def _find_pitch(self, p):
         m = re.search(r'^.b\d$', p)
@@ -180,16 +196,35 @@ class Device:
         self.scale = self.build_scale(scale_name)
         return notes
 
-    def arp(self, notes, duration=1, pattern=[], repeats=1):
+    def arp(self, notes, duration=1, arp_type='up', repeats=1):
         if not notes:
             notes = self.notes
-        if not pattern:
-            pattern = self.pattern
-        arp = []
-        for i in range(repeats):
-            for p in pattern:
-                d = duration / len(notes)
-                arp.append([ d, notes[p] ])
+
+        pattern = arp_type if isinstance(arp_type, list) else self.build_pattern(arp_type, notes)
+
+        pat = CircularArray(pattern)
+
+        z = duration / len(notes)
         if self.verbose:
-            print("Arp:", arp)
+            print("Divided duration:", z)
+
+        arp = []
+        for _ in range(repeats):
+            for _ in range(len(notes)):
+                arp.append([ z, notes[pat.current()] ])
+                pat.next()
+        if self.verbose:
+            print('Arp:', arp)
+
         return arp
+
+    def build_pattern(self, arp_type, notes):
+        return self.arp_type(arp_type)(notes)
+
+    def arp_type(self, arp_type=None, coderef=None):
+        if arp_type is not None and coderef is not None:
+            self._dispatch[arp_type] = coderef
+        elif arp_type is not None:
+            return self._dispatch[arp_type]
+        else:
+            return self._dispatch

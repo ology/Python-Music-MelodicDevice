@@ -1,3 +1,6 @@
+0.2.1 2025-09-18
+    - Fix the arpeggiation logic.
+
 0.2.0 2025-09-18
     - Add the arpeggiation device.
 

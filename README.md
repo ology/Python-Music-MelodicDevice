@@ -153,9 +153,9 @@ Return a list of chromatic notes inclusively between the `from_pitch` and `to_pi
 ```python
 notes = device.arp() # use defaults
 notes = device.arp(notes)
-notes = device.arp(notes, duration)
-notes = device.arp(notes, duration, pattern)
-notes = device.arp(notes, duration, pattern, repeats)
+notes = device.arp(notes, duration=duration)
+notes = device.arp(notes, arp_type=arp_type)
+notes = device.arp(notes, repeats=repeats)
 ```
 
 Return a list of the number of `notes`, selected by the arpeggiated `pattern`, and distributed across the `duration`.
