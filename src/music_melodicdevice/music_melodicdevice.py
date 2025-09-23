@@ -1,4 +1,6 @@
-import musical_scales
+import sys
+sys.path.append('./src')
+import music_melodicdevice.musical_scales as musical_scales
 from music21 import pitch, note
 import random
 import re
@@ -48,7 +50,7 @@ class Device:
             self.scale_name = name
         scale = []
         for i in range(-1,10):
-            s = musical_scales.scale(self.scale_note + str(i), self.scale_name)
+            s = musical_scales.scale(self.scale_note, self.scale_name, starting_octave=i)
             scale.append(s[:-1])
         scale = [ f"{x}" for y in scale for x in y ]
         if self.flat:
