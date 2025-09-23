@@ -1,3 +1,6 @@
+0.2.5 2025-09-23
+    - Remove the patched musical_scales class again.
+
 0.2.4 2025-09-22
     - Ressurect my patched musical_scales until the package is fixed...
 
