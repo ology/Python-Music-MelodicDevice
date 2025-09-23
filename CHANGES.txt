@@ -1,3 +1,6 @@
+0.2.6 2025-09-23
+    - Add an arpeggiation example to the readme.
+
 0.2.5 2025-09-23
     - Remove the patched musical_scales class again.
 
