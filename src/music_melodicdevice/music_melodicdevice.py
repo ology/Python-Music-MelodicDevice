@@ -202,14 +202,15 @@ class Device:
 
         pat = CircularArray(pattern)
 
-        z = duration / len(notes)
+        z = duration / len(pattern)
         if self.verbose:
             print("Divided duration:", z)
 
         arp = []
         for _ in range(repeats):
-            for _ in range(len(notes)):
-                arp.append([ z, notes[pat.current()] ])
+            for _ in range(len(pattern)):
+                if pat.current() < len(notes):
+                    arp.append([ z, notes[pat.current()] ])
                 pat.next()
         if self.verbose:
             print('Arp:', arp)

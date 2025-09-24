@@ -158,7 +158,7 @@ notes = device.arp(notes, arp_type=arp_type)
 notes = device.arp(notes, repeats=repeats)
 ```
 
-Return a list of the number of `notes`, selected by the arpeggiated `pattern`, and distributed across the `duration`.
+Return a list of the `notes` selected by the arpeggiated `pattern`, and distributed across the `duration`.
 
 ## MUSICAL EXAMPLES
 ```python
