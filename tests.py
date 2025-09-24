@@ -137,6 +137,7 @@ class TestMelodicDevice(unittest.TestCase):
         self.assertTrue(callable(device.arp_type))
         types = device.arp_type()
         self.assertTrue(isinstance(types, dict))
+        self.assertEqual(device.build_pattern('updown',[60,61,62,63]), [0,1,2,3,2,1])
         got = device.arp_type('up')
         self.assertTrue(callable(got))
         self.assertEqual(types['up'], got)
